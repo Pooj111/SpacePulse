@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    float heartRate;
+    float bloodPressure;
+    float oxygenLevel;
+    int fatigueLevel;
+    int stressLevel;
+} HealthStatus;
+
+typedef struct {
+    int systemStatus; // 0: OK, 1: Failure
+    char notification[256];
+} ShuttleSystem;
+
+void monitorHealth(HealthStatus *health) {
+    printf("Monitoring Health Status:\n");
+    printf("Heart Rate: %.2f bpm\n", health->heartRate);
+    printf("Blood Pressure: %.2f mmHg\n", health->bloodPressure);
+    printf("Oxygen Level: %.2f %%\n", health->oxygenLevel);
+    printf("Fatigue Level: %d\n", health->fatigueLevel);
+    printf("Stress Level: %d\n", health->stressLevel);
+}
+
+void checkShuttleSystem(ShuttleSystem *system) {
+    if (system->systemStatus == 1) {
+        printf("Critical Notification: %s\n", system->notification);
+    } else {
+        printf("Shuttle systems are functioning normally.\n");
+    }
+}
+
+void proactiveSelfCare(HealthStatus *health) {
+    if (health->fatigueLevel > 7) {
+        printf("Recommendation: Take a rest and hydrate.\n");
+    }
+    if (health->stressLevel > 7) {
+        printf("Recommendation: Practice deep breathing exercises.\n");
+    }
+}
+
+int main() {
+    HealthStatus astronautHealth = {72.0, 120.0, 98.0, 5, 4};
+    ShuttleSystem shuttleSystem = {0, "No issues detected."};
+
+    monitorHealth(&astronautHealth);
+    checkShuttleSystem(&shuttleSystem);
+    proactiveSelfCare(&astronautHealth);
+
+    return 0;
+}
